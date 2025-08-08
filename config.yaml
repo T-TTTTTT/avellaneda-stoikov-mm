@@ -1,0 +1,95 @@
+# Avellaneda-Stoikov Market Maker Configuration
+
+# Global settings
+logging_level: INFO
+session_hours: 24  # Trading session length in hours
+
+# Market-specific configurations
+markets:
+  BTC-USDC:
+    enabled: true
+    
+    # Avellaneda-Stoikov parameters
+    gamma: 0.1          # Risk aversion parameter (0.01 to 1.0)
+    volatility: 0.015   # Initial volatility estimate (1.5%)
+    
+    # Position limits
+    max_position: 0.1   # Maximum position in BTC
+    min_position: -0.1  # Minimum position (can go short)
+    order_size: 0.001   # Size per order
+    
+    # Lockout periods (from Rust MM pattern)
+    fill_lockout_ms: 1000    # Wait 1 second after fill
+    order_lockout_ms: 500    # Wait 0.5 seconds between orders
+    reject_lockout_ms: 2000  # Wait 2 seconds after reject
+    
+    # Tolerance band (from Rust MM pattern)
+    tolerance_frac: 0.001    # 0.1% - cancel if price moves beyond this
+    
+    # Market specifics
+    tick_size: 0.1
+    min_order_size: 0.0001
+
+  ETH-USDC:
+    enabled: true
+    
+    # Avellaneda-Stoikov parameters
+    gamma: 0.15         # Slightly more risk averse for ETH
+    volatility: 0.02    # 2% initial volatility
+    
+    # Position limits
+    max_position: 1.0
+    min_position: -1.0
+    order_size: 0.01
+    
+    # Lockout periods
+    fill_lockout_ms: 1000
+    order_lockout_ms: 500
+    reject_lockout_ms: 2000
+    
+    # Tolerance band
+    tolerance_frac: 0.0015   # 0.15% for more volatile ETH
+    
+    # Market specifics
+    tick_size: 0.01
+    min_order_size: 0.001
+
+  HYPE-USDC:
+    enabled: false  # Can enable when ready
+    
+    # Avellaneda-Stoikov parameters
+    gamma: 0.2          # Higher risk aversion for volatile token
+    volatility: 0.05    # 5% initial volatility
+    
+    # Position limits
+    max_position: 100
+    min_position: -100
+    order_size: 1.0
+    
+    # Lockout periods
+    fill_lockout_ms: 1500
+    order_lockout_ms: 750
+    reject_lockout_ms: 3000
+    
+    # Tolerance band
+    tolerance_frac: 0.002    # 0.2% for high volatility
+    
+    # Market specifics
+    tick_size: 0.001
+    min_order_size: 0.5
+
+# Connection settings
+cpty:
+  host: localhost
+  port: 50051
+  
+# Risk management
+risk:
+  max_total_position_usd: 10000  # Maximum total position across all markets
+  daily_loss_limit_usd: 500      # Stop if daily loss exceeds this
+  
+# Performance monitoring
+monitoring:
+  metrics_interval_seconds: 60   # Log metrics every minute
+  save_metrics_to_file: true
+  metrics_file: metrics.json

@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.hypothesis/
+
+# Logs
+*.log
+logs/
+
+# Application specific
+metrics.json
+config.local.yaml
+config.override.yaml
+*.bak
+
+# Secrets
+secrets.json
+.env
+
+# uv
+uv.lock
+
+# Database
+*.db
+*.sqlite
+
+# Temporary files
+tmp/
+temp/
