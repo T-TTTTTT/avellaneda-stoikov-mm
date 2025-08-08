@@ -1,5 +1,13 @@
 # Avellaneda-Stoikov Market Maker Configuration
 
+# Architect Connection Settings (can be overridden by environment variables)
+architect:
+  # endpoint: Set via ARCHITECT_HOST env var
+  # api_key: Set via ARCHITECT_API_KEY env var  
+  # api_secret: Set via ARCHITECT_API_SECRET env var
+  paper_trading: false
+  use_tls: true
+
 # Global settings
 logging_level: INFO
 session_hours: 24  # Trading session length in hours
@@ -8,6 +16,7 @@ session_hours: 24  # Trading session length in hours
 markets:
   BTC-USDC:
     enabled: true
+    venue: LIGHTER  # Which exchange to trade on via Architect
     
     # Avellaneda-Stoikov parameters
     gamma: 0.1          # Risk aversion parameter (0.01 to 1.0)
@@ -32,6 +41,7 @@ markets:
 
   ETH-USDC:
     enabled: true
+    venue: LIGHTER  # Which exchange to trade on via Architect
     
     # Avellaneda-Stoikov parameters
     gamma: 0.15         # Slightly more risk averse for ETH
@@ -56,6 +66,7 @@ markets:
 
   HYPE-USDC:
     enabled: false  # Can enable when ready
+    venue: LIGHTER  # Which exchange to trade on via Architect
     
     # Avellaneda-Stoikov parameters
     gamma: 0.2          # Higher risk aversion for volatile token
@@ -78,11 +89,6 @@ markets:
     tick_size: 0.001
     min_order_size: 0.5
 
-# Connection settings
-cpty:
-  host: localhost
-  port: 50051
-  
 # Risk management
 risk:
   max_total_position_usd: 10000  # Maximum total position across all markets
